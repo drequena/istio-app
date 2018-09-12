@@ -4,7 +4,7 @@ import json
 
 app = Flask(__name__)
 
-app_data = {'version': '1.2', 'name': 'service3', 'hostname': os.uname()[1]}
+app_data = {'version': '1.2', 'name': 'service3', 'hostname': os.uname()[1], "status":"up"}
 
 @app.route('/')
 def default_root():

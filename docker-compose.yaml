@@ -1,0 +1,42 @@
+version: "3"
+services:
+  srv-1:
+    build:
+      context: ./srv-1
+      dockerfile: Dockerfile
+    image: istio-srv1
+    ports:
+      - "5000"
+    environment: 
+      - NEXT_SERVICE=srv-2
+      - NEXT_SERVICE_PORT=5001
+    networks: 
+      - main
+  srv-2:
+    build:
+      context: ./srv-2
+      dockerfile: Dockerfile
+    image: istio-srv2
+    ports:
+      - "5001"
+    environment: 
+      - NEXT_SERVICE=srv-3
+      - NEXT_SERVICE_PORT=5002
+    networks: 
+      - main
+    depends_on: 
+      - srv-1
+  srv-3:
+    build:
+      context: ./srv-3
+      dockerfile: Dockerfile
+    image: istio-srv3
+    ports:
+      - "5002"
+    networks: 
+      - main
+    depends_on: 
+      - srv-2
+
+networks: 
+  main:

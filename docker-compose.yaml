@@ -26,6 +26,17 @@ services:
       - main
     depends_on: 
       - srv-1
+  db:
+    build:
+      context: ./db
+      dockerfile: Dockerfile
+    image: istio-db
+    ports:
+      - "3306"
+    environment: 
+      - MYSQL_ROOT_PASSWORD=123456
+    networks:
+      - main
   srv-3:
     build:
       context: ./srv-3
@@ -37,6 +48,6 @@ services:
       - main
     depends_on: 
       - srv-2
-
+      - db
 networks: 
   main:

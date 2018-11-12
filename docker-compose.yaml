@@ -55,5 +55,20 @@ services:
     depends_on: 
       - srv-2
       - db
+  srv-4:
+    build:
+      context: ./srv-4
+      dockerfile: Dockerfile
+    image: istio-srv4
+    ports:
+      - "5003"
+    environment: 
+      - NEXT_SERVICE=jsonplaceholder.typicode.com
+      - NEXT_SERVICE_PORT=443
+      - NEXT_SERVICE_ROUTE=/users/1
+    networks: 
+      - main
+    depends_on: 
+      - srv-3
 networks: 
   main:

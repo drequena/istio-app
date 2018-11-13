@@ -50,6 +50,8 @@ services:
       - DATABASEPASS=123456
       - DATABASENAME=data
       - DATABASEPORT=3306
+      - NEXT_SERVICE=srv-4
+      - NEXT_SERVICE_PORT=5003
     networks: 
       - main
     depends_on: 

@@ -4,7 +4,7 @@ import json
 import requests
 import random
 
-nextServiceHost = os.getenv("NEXT_SERVICE","jsonplaceholderr.typicode.com")
+nextServiceHost = os.getenv("NEXT_SERVICE","jsonplaceholder.typicode.com")
 nextServicePort = os.getenv("NEXT_SERVICE_PORT","443")
 nextServiceRoute = os.getenv("NEXT_SERVICE_ROUTE","/users/")
 app = Flask(__name__)

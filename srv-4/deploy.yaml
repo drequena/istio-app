@@ -1,0 +1,28 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: istio-srv4
+  labels:
+    app: srv-4
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: srv-4
+  template:
+    metadata:
+      labels:
+        app: srv-4
+    spec:
+      containers:
+      - name: istio-srv4
+        image: requena/istio-srv4:1.0
+        ports:
+          - containerPort: 5003
+        env:
+         - name: NEXT_SERVICE
+           value: "jsonplaceholder.typicode.com"
+         - name: NEXT_SERVICE_PORT
+           value: "443"
+         - name: NEXT_SERVICE_ROUTE
+           value: "/users/"

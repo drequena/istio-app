@@ -1,0 +1,30 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: istio-srv3
+  labels:
+    app: srv-3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: srv-3
+  template:
+    metadata:
+      labels:
+        app: srv-3
+    spec:
+      containers:
+      - name: istio-srv3
+        image: requena/istio-srv3:1.0
+        ports:
+          - containerPort: 5002
+        env:
+         - name: NEXT_SERVICE
+           value: "srv-4"
+         - name: NEXT_SERVICE_PORT
+           value: "5003"
+         - name: DATABASEHOST
+           value: "db"
+         - name: DATABASEPORT
+           value: "3306"

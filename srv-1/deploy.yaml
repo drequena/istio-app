@@ -1,0 +1,26 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: istio-srv1
+  labels:
+    app: srv-1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: srv-1
+  template:
+    metadata:
+      labels:
+        app: srv-1
+    spec:
+      containers:
+      - name: istio-srv1
+        image: requena/istio-srv1:1.0
+        ports:
+          - containerPort: 5000
+        env:
+         - name: NEXT_SERVICE
+           value: "srv-2"
+         - name: NEXT_SERVICE_PORT
+           value: "5001"

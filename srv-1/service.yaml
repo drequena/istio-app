@@ -1,0 +1,11 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: srv-1
+spec:
+  selector:
+    app: srv-1
+  ports:
+  - port: 5000
+    name: mainport

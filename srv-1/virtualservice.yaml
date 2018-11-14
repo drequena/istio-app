@@ -1,0 +1,15 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: srv-1
+spec:
+  hosts:
+  - srv-1.istio-demo.intra.net
+  gateways:
+  - istio-srv1-gateway
+  http:
+  - route:
+    - destination:
+        port:
+          number: 5000
+        host: srv-1

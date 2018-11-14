@@ -25,6 +25,6 @@ spec:
          - name: NEXT_SERVICE_PORT
            value: "5003"
          - name: DATABASEHOST
-           value: "db"
+           value: "db.database.svc.cluster.local"
          - name: DATABASEPORT
            value: "3306"

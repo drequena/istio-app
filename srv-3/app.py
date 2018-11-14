@@ -40,7 +40,6 @@ def default_root():
         returnedJson = r.json()
 
         app_data.update(result.items())
-        app_data.update(returnedJson.items())
 
     except requests.exceptions.ConnectionError:
         app.logger.error("Error while connecting to %s", nextService)
@@ -48,5 +47,7 @@ def default_root():
     except:
         app_data.update({"db_data":"Failed to connect to DB"})
         app.logger.error("Failed to connect to DB")
-    
+
+    response.update(returnedJson.items())
+
     return jsonify(response)

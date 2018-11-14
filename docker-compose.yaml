@@ -67,7 +67,7 @@ services:
     environment: 
       - NEXT_SERVICE=jsonplaceholder.typicode.com
       - NEXT_SERVICE_PORT=443
-      - NEXT_SERVICE_ROUTE=/users/1
+      - NEXT_SERVICE_ROUTE=/users/
     networks: 
       - main
     depends_on: 

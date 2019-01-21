@@ -8,4 +8,4 @@ spec:
     app: srv-2
   ports:
   - port: 5001
-    name: mainport
+    name: http

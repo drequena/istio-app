@@ -8,4 +8,4 @@ spec:
     app: srv-4
   ports:
   - port: 5003
-    name: mainport
+    name: http

@@ -1,0 +1,17 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: srv-2
+spec:
+  hosts:
+  - srv-2
+  http:
+  - route:
+    - destination:
+        host: srv-2
+        subset: v1
+      weight: 50
+    - destination:
+        host: srv-2
+        subset: v2
+      weight: 50

@@ -13,3 +13,11 @@ spec:
         port:
           number: 5000
         host: srv-1
+        subset: v1
+      weight: 50
+    - destination:
+        port:
+          number: 5000
+        host: srv-1
+        subset: v2
+      weight: 50

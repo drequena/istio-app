@@ -13,6 +13,7 @@ spec:
     metadata:
       labels:
         app: srv-4
+        version: v1
     spec:
       containers:
       - name: istio-srv4

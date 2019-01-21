@@ -1,7 +1,7 @@
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: istio-srv2
+  name: istio-srv2-v2
   labels:
     app: srv-2
 spec:
@@ -13,11 +13,11 @@ spec:
     metadata:
       labels:
         app: srv-2
-        version: v1
+        version: v2
     spec:
       containers:
       - name: istio-srv2
-        image: requena/istio-srv2:1.0
+        image: requena/istio-srv2:1.9
         ports:
           - containerPort: 5000
         env:

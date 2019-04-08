@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title>Istio-app</title>
+</head>
+<style>
+body {
+    font: 16px Arial, sans-serif;
+    /*font: 15px courier new, sans-serif;*/
+}
+
+td {
+    border: 1px;
+    border-style:solid;
+    border-color: black;
+    border-radius:25px;
+    margin: 10px;
+    padding: 10px;
+    height: 120px;
+    width: 200px;
+}
+
+#db,#placeholder {
+    width: 500px;
+}
+
+#placeholder {
+    font-size: 12px;
+}
+</style>
+<body>
+    <script type="text/javascript" language="javascript">
+
+        var interval = null;
+
+        function start_stop(){
+            var message = document.getElementById("command_button").innerHTML;
+
+            if(message == "Start"){
+                document.getElementById("command_button").innerHTML = "Stop";
+                interval = window.setInterval(function(){
+                    send();
+                }, 2000);
+            } else {
+                document.getElementById("command_button").innerHTML = "Start";
+                window.clearInterval(interval);
+            }
+        }
+
+        function send(){
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.open("GET","http://srv-1.istio-demo.intra.net/", true);
+            xmlhttp.send();
+
+            xmlhttp.onreadystatechange = function() {
+                var obj = JSON.parse(xmlhttp.response);
+                var services = ["service1","service2","service3","service4"];
+                for (i=0; i < services.length; i++) {
+                    if (obj[services[i]]){
+                        document.getElementById(services[i]).innerHTML = "";
+                        document.getElementById(services[i]).innerHTML += services[i] + ": " + obj[services[i]].status + "<br>";
+                        document.getElementById(services[i]).innerHTML += "Hostname: " + obj[services[i]].hostname + "<br>";
+                        document.getElementById(services[i]).innerHTML += "Version: " + "<b>" + obj[services[i]].version + "</b>" + "<br>";
+                        document.getElementById(services[i]).setAttribute("bgcolor", "#7aef89");
+                        
+                        if (obj[services[i]].db_data){
+                            var db_data = JSON.stringify(obj[services[i]].db_data);
+                            document.getElementById("db").innerHTML = "";
+                            document.getElementById("db").innerHTML = db_data;
+                            document.getElementById("db").setAttribute("bgcolor", "#8bbdf9");
+                        }
+
+                        if (obj[services[i]].API_Data){
+                            var api_data = JSON.stringify(obj[services[i]].API_Data);
+                            document.getElementById("placeholder").innerHTML = "";
+                            document.getElementById("placeholder").innerHTML = api_data;
+                            document.getElementById("placeholder").setAttribute("bgcolor", "#8bbdf9");
+                        }
+
+                    } else {
+                        document.getElementById(services[i]).innerHTML = services[i] + ": DOWN"
+                        document.getElementById(services[i]).setAttribute("bgcolor", "#f45353");
+
+                        if (services[i] == "service3"){
+                            document.getElementById("db").innerHTML = "";
+                        }
+
+                        if (services[i] == "service4"){
+                            document.getElementById("placeholder").innerHTML = "";
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <center>
+        <table>
+            <tr>
+                <td id="service1" bgcolor="">
+                    service1:<br>
+                    Hostname:<br>
+                    Version:<br>
+                </td>
+            </tr>
+            <tr>
+                <td id="service2" bgcolor="">
+                    service2:<br>
+                    Hostname:<br>
+                    Version:<br>
+                </td>
+            </tr>
+            <tr>
+                <td id="service3" bgcolor="">
+                    service3:<br>
+                    Hostname:<br>
+                    Version:<br>
+                </td>
+                <td id="db" bgcolor=""></td>
+            </tr>
+            <tr>
+                <td id="service4" bgcolor="">
+                    service4:<br>
+                    Hostname:<br>
+                    Version:<br>
+                </td>
+                <td id="placeholder" bgcolor=""></td>
+            </tr>
+        </table>
+        </br>
+        <button id="command_button" type="submit" onclick="javascript:start_stop()">Start</button>
+    </center>
+</body>
+</html>
